@@ -51,7 +51,7 @@ void CreateGUI()
 			playeresptab->Push(name);
 			auto distance = std::make_shared<Toggle>(100, 45, LIT(L"Distance"), &Configs.Player.Distance);
 			playeresptab->Push(distance);
-			auto box = std::make_shared<Toggle>(100, 65, LIT(L"Distance"), &Configs.Player.Distance);
+			auto box = std::make_shared<Toggle>(100, 65, LIT(L"Box"), &Configs.Player.Box);
 			playeresptab->Push(box);
 			auto maxdistance = std::make_shared<Slider<int>>(100, 85, 150, LIT(L"Max Distance"), LIT(L"m"), 0, 1000, &Configs.Player.MaxDistance);
 			playeresptab->Push(maxdistance);
