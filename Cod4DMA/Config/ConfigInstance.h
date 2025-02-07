@@ -10,7 +10,6 @@ public:
 	OverlayConfig Overlay = OverlayConfig(LIT("Overlay"));
 	AimbotConfig Aimbot = AimbotConfig(LIT("Aimbot"));
 
-
 	json ToJson()
 	{
 		json jsoned;

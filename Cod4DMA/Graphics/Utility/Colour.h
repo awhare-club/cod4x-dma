@@ -1,4 +1,5 @@
 #pragma once
+
 D2D1::ColorF Colour(UINT8 R, UINT8 G, UINT8 B, UINT8 A = 255);
 
 //Fuck you Microsoft for not having a default constructor that will work for mappy map :(

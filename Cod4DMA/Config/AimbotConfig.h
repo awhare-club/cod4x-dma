@@ -9,6 +9,7 @@ public:
     {
         ConfigName = name;
     }
+
     bool Enable = true;
     int MaxDistance = 250;
     bool TargetPlayers = true;
@@ -18,15 +19,17 @@ public:
     bool DrawFOV = true;
     int AimBone = 0;
     int Smoothing = 0;
+
     D2D1::ColorF FOVColour = D2D1::ColorF::White;
+
     void ToJsonColour(json* j, const std::string& name, D2D1::ColorF* colour)
     {
         (*j)[ConfigName][name][LIT("r")] = colour->r;
         (*j)[ConfigName][name][LIT("g")] = colour->g;
         (*j)[ConfigName][name][LIT("b")] = colour->b;
         (*j)[ConfigName][name][LIT("a")] = colour->a;
-
     }
+
     void FromJsonColour(json j, const std::string& name, D2D1::ColorF* colour)
     {
         if (j[ConfigName].contains(name))
@@ -52,31 +55,40 @@ public:
         j[ConfigName][LIT("AimBone")] = AimBone;
         j[ConfigName][LIT("Smoothing")] = Smoothing;
 
-
-
         return j;
     }
+
     void FromJson(const json& j)
     {
         if (!j.contains(ConfigName))
             return;
+
         if (j[ConfigName].contains(LIT("Enable")))
             Enable = j[ConfigName][LIT("Enable")];
+
         if (j[ConfigName].contains(LIT("MaxDistance")))
             MaxDistance = j[ConfigName][LIT("MaxDistance")];
+
         if (j[ConfigName].contains(LIT("TargetPlayers")))
             TargetPlayers = j[ConfigName][LIT("TargetPlayers")];
+
         if (j[ConfigName].contains(LIT("Priority")))
             Priority = j[ConfigName][LIT("Priority")];
+
         if (j[ConfigName].contains(LIT("FOV")))
             FOV = j[ConfigName][LIT("FOV")];
+
         if (j[ConfigName].contains(LIT("Aimkey")))
             Aimkey = j[ConfigName][LIT("Aimkey")];
+
         if (j[ConfigName].contains(LIT("DrawFOV")))
             DrawFOV = j[ConfigName][LIT("DrawFOV")];
+
         FromJsonColour(j, LIT("FOVColour"), &FOVColour);
+
         if (j[ConfigName].contains(LIT("AimBone")))
 			AimBone = j[ConfigName][LIT("AimBone")];
+
         if (j[ConfigName].contains(LIT("Smoothing")))
             Smoothing = j[ConfigName][LIT("Smoothing")];
     }

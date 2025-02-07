@@ -178,6 +178,7 @@ namespace kmbox
 	{
 		if (!connected)
 			return false;
+
 		return false;
 		std::string command = virtual_key == 3 ? "km.middle()\r\n" : "km.side" + std::to_string(virtual_key) + std::string("()\r\n");
 		SendCommand(command);
@@ -196,6 +197,7 @@ namespace kmbox
 			if (strstr(readBuffer, command2.c_str()))
 				return true;
 		}
+
 		return false;
 	}
 }

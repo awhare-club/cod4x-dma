@@ -579,7 +579,7 @@ bool Memory::DumpMemory(uintptr_t address, std::string path)
 
 		ModuleData tmpModuleData;
 
-		//if(std::find(modulelist.begin(), modulelist.end(), tmpModuleData) == modulelist.end())
+		//if (std::find(modulelist.begin(), modulelist.end(), tmpModuleData) == modulelist.end())
 		//	modulelist.push_back(tmpModuleData);
 		while (original_first_thunk.u1.AddressOfData) {
 			char name[256];

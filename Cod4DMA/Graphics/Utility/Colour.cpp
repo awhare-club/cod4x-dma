@@ -57,14 +57,12 @@ std::map<std::string, MyColour> MenuColours =
 
     //{"CheckboxHover", MyColour(100, 100, 100, 255)},
     //{"CheckboxActive", MyColour(120, 120, 120, 255)},
-
 };
 
 D2D1::ColorF Colour(UINT8 R, UINT8 G, UINT8 B, UINT8 A)
 {
     return D2D1::ColorF(static_cast<float>(R) / 255.0f, static_cast<float>(G) / 255.0f, static_cast<float>(B) / 255.0f, static_cast<float>(A) / 255.0f);
 }
-
 
 D2D1::ColorF HueToRGB(float hue)
 {
@@ -119,7 +117,9 @@ D2D1::ColorF HueToRGB(float hue)
         col.b = 0;
         break;
     }
+
     col.a = 1.0f;
+
     return col;
 }
 
@@ -236,7 +236,6 @@ HsvColour RgbToHsv(float r, float g, float b)
         hsv.S = delta / maxcolor;
     }
 
-
     // Hue calculation
     if (delta == 0)
         hsv.H = 0;
@@ -249,6 +248,7 @@ HsvColour RgbToHsv(float r, float g, float b)
 
     if (hsv.H < 0)
         hsv.H += 360;
+
     return hsv;
 }
 

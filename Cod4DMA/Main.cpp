@@ -6,7 +6,9 @@
 #include "GUI.h"
 #include "ConfigUtilities.h"
 #include "Game.h"
+
 std::shared_ptr<Game> GameInstance;
+
 void main()
 {
 	while (!TargetProcess.Init("iw3mp.exe", true, true))
@@ -15,10 +17,12 @@ void main()
 		Sleep(2000);
 		continue;
 	}
+
 	TargetProcess.FixCr3();
 	std::printf("Cod4x: 0x%X\n", TargetProcess.GetBaseAddress("iw3mp.exe"));
 	GameInstance = std::make_shared<Game>();
 }
+
 LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	InputWndProc(hWnd, message, wParam, lParam);
@@ -63,7 +67,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	if (!hWnd)
 		return -1;
 
-
 	SetLayeredWindowAttributes(hWnd, RGB(0, 0, 0), 255, LWA_ALPHA);
 
 	ShowWindow(hWnd, nCmdShow);
@@ -74,6 +77,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	MSG msg;
 	SetProcessDPIAware();
 	SetInput();
+
 	while (TRUE)
 	{
 		if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
@@ -86,6 +90,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		}
 		RenderFrame();
 	}
+
 	CleanD2D();
+
 	return msg.wParam;
 }

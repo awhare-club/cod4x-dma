@@ -63,9 +63,11 @@ Vector2 GetTextSize(std::wstring text, std::string font, size_t font_size)
 	range.length = text.length();
 	range.startPosition = 0;
 	layout->SetFontSize(font_size, range);
+
 	DWRITE_TEXT_METRICS metrics;
 	if (SUCCEEDED(layout->GetMetrics(&metrics)))
 		return Vector2(metrics.widthIncludingTrailingWhitespace, metrics.height);
+
 	return Vector2(0, 0);
 }
 

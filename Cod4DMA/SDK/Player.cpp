@@ -4,7 +4,7 @@
 
 void Player::UpdateClientSize(VMMDLL_SCATTER_HANDLE handle)
 {
-		TargetProcess.AddScatterReadRequest(handle, ClientInfoOffset +Iteration *ClientSizeOffset, reinterpret_cast<void*>(&ClientSize), sizeof(int));
+	TargetProcess.AddScatterReadRequest(handle, ClientInfoOffset +Iteration *ClientSizeOffset, reinterpret_cast<void*>(&ClientSize), sizeof(int));
 }
 
 void Player::UpdateEntityIndex(VMMDLL_SCATTER_HANDLE handle)
@@ -32,7 +32,6 @@ void Player::UpdateStance(VMMDLL_SCATTER_HANDLE handle)
 	TargetProcess.AddScatterReadRequest(handle, ClientInfoOffset + Iteration * ClientSizeOffset + StanceOffset, reinterpret_cast<void*>(&Stance), sizeof(int));
 	TargetProcess.AddScatterReadRequest(handle, ClientInfoOffset + Iteration * ClientSizeOffset + LastStandOffset, reinterpret_cast<void*>(&IsInLastStand), sizeof(bool));
 }
-
 
 int Player::GetIteration()
 {
@@ -76,7 +75,7 @@ Player::Player(int itterator)
 
 Stances Player::GetConveredStance()
 {
-	if(IsInLastStand)
+	if (IsInLastStand)
 		return Stances::LastStand;
 	if (Stance == 2 || Stance == 1024 || Stance == 2048 || Stance == 1048576 || Stance == 0 || Stance == 16 || Stance == 32)	// 1048576 is sprinting		0 is broken ankles		There's a lot of different values for mounting objects
 		return Stances::Standing;
@@ -85,7 +84,7 @@ Stances Player::GetConveredStance()
 	else if (Stance == 8 || Stance == 256 || Stance == 512)
 		return Stances::Prone;
 	else
-	return Stances::Other;
+		return Stances::Other;
 
 }
 
@@ -93,16 +92,16 @@ Vector3 Player::GetHeadWorldPosition()
 {
 	Stances stance = GetConveredStance();
 
-if(stance == Stances::Standing)
-	return Vector3(Position.x, Position.y, Position.z + 60);
-else if(stance == Stances::Crouching)
-	return Vector3(Position.x, Position.y, Position.z + 35);
-else if(stance == Stances::Prone)
-	return Vector3(Position.x, Position.y, Position.z + 18);
-else if (stance == Stances::LastStand)
-return Vector3(Position.x, Position.y, Position.z + 21);
-else
-	return Vector3(Position.x, Position.y, Position.z + 50);
+	if (stance == Stances::Standing)
+		return Vector3(Position.x, Position.y, Position.z + 60);
+	else if (stance == Stances::Crouching)
+		return Vector3(Position.x, Position.y, Position.z + 35);
+	else if (stance == Stances::Prone)
+		return Vector3(Position.x, Position.y, Position.z + 18);
+	else if (stance == Stances::LastStand)
+		return Vector3(Position.x, Position.y, Position.z + 21);
+	else
+		return Vector3(Position.x, Position.y, Position.z + 50);
 }
 Vector3 Player::GetAimBonePosition()
 {
@@ -110,6 +109,7 @@ Vector3 Player::GetAimBonePosition()
 	{
 		return GetHeadWorldPosition();
 	}
+
 	if (Configs.Aimbot.AimBone == 1)
 	{
 		Stances stance = GetConveredStance();
@@ -124,5 +124,6 @@ Vector3 Player::GetAimBonePosition()
 		else
 			return Vector3(Position.x, Position.y, Position.z + 40);
 	}
+
 	return Vector3::Zero();
 }

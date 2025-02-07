@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Input.h"
 #include "Init.h"
+
 // local scope enum
 enum class KeyState
 {
@@ -38,7 +39,9 @@ void UpdateKeyState(int key, bool down)
 {
 	if (key < 0 || key >= KeyStates.size())
 		return;
+
 	KeyTimes[key] = clock() * 0.001f;
+
 	if (KeyHeld[key] && !down)
 		KeyStates[key] = KeyState::KeyDormant;
 
@@ -143,12 +146,15 @@ bool IsKeyDown(int key)
 {
 	if (key < 0 || key >= KeyStates.size())
 		return false;
+
 	if (KeyHeld[key] == true)
 	{
 		return true;
 	}
 	else
+	{
 		return false;
+	}
 }
 
 // check for a clicked key
@@ -156,6 +162,7 @@ bool IsKeyClicked(int key)
 {
 	if (key < 0 || key >= KeyStates.size())
 		return false;
+
 	// Check if the click time is below the current time by 0.05 seconds and is invoked, Kinda messy but works well.
 	if (KeyStates[key] == KeyState::KeyInvoked && (KeyTimes[key]) >= (clock() * 0.001f) - 0.05f)
 		return true;
@@ -180,7 +187,7 @@ bool IsMouseInRectangle(int x, int y, int width, int height)
 		MousePos.y > y &&
 		MousePos.x < x + width &&
 		MousePos.y < y + height
-		);
+	);
 }
 
 bool IsMouseInRectangle(Vector2 pos, Vector2 Dimensions)
@@ -190,7 +197,7 @@ bool IsMouseInRectangle(Vector2 pos, Vector2 Dimensions)
 		MousePos.y > pos.y &&
 		MousePos.x < pos.x + Dimensions.x &&
 		MousePos.y < pos.y + Dimensions.y
-		);
+	);
 }
 
 float TriangleArea(Vector2 point1, Vector2 point2, Vector2 point3)

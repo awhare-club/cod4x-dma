@@ -1,4 +1,5 @@
 #pragma once
+
 void DrawText(int x, int y, std::wstring text, std::string font, int fontsize, MyColour colour, FontAlignment alignment);
 void OutlineCircle(int x, int y, float radius, float linewidth, MyColour colour);
 void FilledCircle(int x, int y, float radius, MyColour colour);

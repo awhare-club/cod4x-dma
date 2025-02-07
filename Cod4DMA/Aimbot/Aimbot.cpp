@@ -14,9 +14,10 @@
 
 int ConditionalSwapPlayer(std::vector<std::shared_ptr<Player>>& entities, int low, int high)
 {
-	std::shared_ptr<Player> pivot = entities[high];
 	int i = low - 1;
+	std::shared_ptr<Player> pivot = entities[high];
 	Vector2 centreofscreen = Vector2(Configs.Overlay.OverrideResolution ? Configs.Overlay.Width / 2 : GetSystemMetrics(SM_CXSCREEN) / 2, Configs.Overlay.OverrideResolution ? Configs.Overlay.Height * 0.6f : GetSystemMetrics(SM_CYSCREEN) * 0.6f);
+	
 	for (int j = low; j < high; ++j)
 	{
 		if (Configs.Aimbot.Priority == 2)
@@ -27,12 +28,14 @@ int ConditionalSwapPlayer(std::vector<std::shared_ptr<Player>>& entities, int lo
 				std::swap(entities[i], entities[j]);
 				continue;
 			}
+
 			if (Vector3::SubDistance(GameInstance->GetLocalPlayer()->GetPosition(), entities[j]->GetAimBonePosition()) < Vector3::SubDistance(GameInstance->GetLocalPlayer()->GetPosition(), pivot->GetAimBonePosition()))
 			{
 				++i;
 				std::swap(entities[i], entities[j]);
 			}
 		}
+
 		if (Configs.Aimbot.Priority == 0)
 		{
 			if (Vector3::SubDistance(GameInstance->GetLocalPlayer()->GetPosition(), entities[j]->GetAimBonePosition()) < Vector3::SubDistance(GameInstance->GetLocalPlayer()->GetPosition(), pivot->GetAimBonePosition()))
@@ -41,6 +44,7 @@ int ConditionalSwapPlayer(std::vector<std::shared_ptr<Player>>& entities, int lo
 				std::swap(entities[i], entities[j]);
 			}
 		}
+
 		if (Configs.Aimbot.Priority == 1)
 		{
 			if (Vector2::Distance(centreofscreen, GameInstance->GetLocalPlayer()->WorldToScreen(entities[j]->GetAimBonePosition())) < Vector2::Distance(centreofscreen, GameInstance->GetLocalPlayer()->WorldToScreen(pivot->GetAimBonePosition())))
@@ -50,7 +54,9 @@ int ConditionalSwapPlayer(std::vector<std::shared_ptr<Player>>& entities, int lo
 			}
 		}
 	}
+
 	std::swap(entities[i + 1], entities[high]);
+
 	return i + 1;
 }
 
@@ -70,20 +76,25 @@ void GetAimbotTarget()
 {
 	if (GameInstance->GetLocalPlayer() == nullptr)
 		return;
+
 	if (GameInstance->GetPlayerCount() == 0)
 		return;
+
 	if (GameInstance->GetPlayers().size() == 0)
 		return;
+
 	if (GameInstance->GetLocalPlayer()->GetPosition() == Vector3::Zero())
 		return;
+
 	if (!Configs.Aimbot.Enable)
 		return;
+
 	Vector2 centreofscreen = Vector2(Configs.Overlay.OverrideResolution ? Configs.Overlay.Width / 2 : GetSystemMetrics(SM_CXSCREEN) / 2, Configs.Overlay.OverrideResolution ? Configs.Overlay.Height /2 : GetSystemMetrics(SM_CYSCREEN) /2);
 
 	std::vector<std::shared_ptr<Player>> templist;
 	Vector3 localpos = GameInstance->GetLocalPlayer()->GetPosition();
 	
-		templist = GameInstance->GetPlayers();
+	templist = GameInstance->GetPlayers();
 
 	QuickSortPlayers(templist, 0, templist.size() - 1);
 
@@ -91,20 +102,28 @@ void GetAimbotTarget()
 	{
 		if (player == nullptr)
 			continue;
+
 		if (!Configs.Aimbot.TargetPlayers)
 			continue;
+
 		if (!player->GetClientSize())
 			continue;
+
 		if (!player->GetAlive())
 			continue;
+
 		if (Vector3::SubDistance(GameInstance->GetLocalPlayer()->GetPosition(), player->GetPosition()) > Configs.Aimbot.MaxDistance)
 			continue;
+
 		if (GameInstance->GetLocalPlayer()->WorldToScreen(player->GetAimBonePosition()) == Vector2::Zero())
 			continue;
+
 		if (Vector2::Distance(GameInstance->GetLocalPlayer()->WorldToScreen(player->GetAimBonePosition()), centreofscreen) > Configs.Aimbot.FOV)
 			continue;
+
 		AimbotTarget = player;
-		//	printf("Targeting: %s\n", AimbotTarget->GetName().c_str());
+		//printf("Targeting: %s\n", AimbotTarget->GetName().c_str());
+
 		return;
 	}
 	AimbotTarget = nullptr;
@@ -172,7 +191,6 @@ void Aimbot()
 			+ (float(rand() % ((int)(smoothx > 1 ? smoothx / 2 : smoothx)) + (float)(rand() % 5) + randomnumber)))));
 		diff.y = static_cast<int>(std::round(y / ((smoothy > 1 ? smoothy / 2 : smoothy)
 			+ (float(rand() % ((int)(smoothy > 1 ? smoothy / 2 : smoothy)) + (float)(rand() % 5) + randomnumber)))));
-	
 	}
 	else
 	{

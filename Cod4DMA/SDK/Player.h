@@ -1,4 +1,5 @@
 #pragma once
+
 enum class Stances
 {
 	Standing,
@@ -7,6 +8,7 @@ enum class Stances
 	LastStand,
 	Other
 };
+
 class Player
 {
 private:
@@ -31,13 +33,13 @@ private:
 
 public:
 	Player(int itterator);
+
 	void UpdateClientSize(VMMDLL_SCATTER_HANDLE handle);
 	void UpdateEntityIndex(VMMDLL_SCATTER_HANDLE handle);
 	void UpdateTeam(VMMDLL_SCATTER_HANDLE handle);
 	void UpdateAlive(VMMDLL_SCATTER_HANDLE handle);
 	void UpdatePosition(VMMDLL_SCATTER_HANDLE handle);
 	void UpdateStance(VMMDLL_SCATTER_HANDLE handle);
-
 
 	int GetIteration();
 	int GetClientSize();

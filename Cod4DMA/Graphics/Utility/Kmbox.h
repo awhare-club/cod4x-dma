@@ -6,7 +6,9 @@
 #include <thread>
 #include <setupapi.h>
 #include <devguid.h>
+
 #pragma comment(lib, "setupapi.lib")
+
 namespace kmbox
 {
 	extern bool connected;

@@ -9,7 +9,6 @@ CheatFunction::CheatFunction(int time, std::function<void()> func)
 
 void CheatFunction::Execute()
 {
-
 	if (GetTickCount64() - LastExecution > MsSleep)
 	{
 		Function();

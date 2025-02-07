@@ -1,4 +1,5 @@
 #pragma once
+
 float InOutSine(float t);
 
 template <typename T>
